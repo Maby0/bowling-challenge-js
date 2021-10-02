@@ -1,4 +1,4 @@
-## Bowling challenge in Ruby
+## Bowling challenge in JavaScript
 
 This was a tricky project that required very careful and thoughtful planning. The app works as required in the project outline below, but the code is far from complete. I'm planning on refactoring a lot of the code and aim for 100% test coverage.
 
