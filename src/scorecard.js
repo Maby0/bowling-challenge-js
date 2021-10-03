@@ -10,17 +10,17 @@ class Scorecard {
     if (this._gameEnded()) {
       return `The game has ended. Your final score was ${this.currentGame.score()}.`
     } else {
-      if (this.currentGame._getLastFrame().frameFinished) {
+      if (this.currentGame._getMostRecentFrame().frameFinished) {
         this.currentGame._nextFrame();
-        this.currentGame._getLastFrame().bowl();
+        this.currentGame._getMostRecentFrame().bowl();
       } else {
-        this.currentGame._getLastFrame().bowl();
+        this.currentGame._getMostRecentFrame().bowl();
       }
     }
   }
 
   static _gameEnded() {
-    return this.currentGame.framesPlayed() === 10 && this.currentGame._getLastFrame().frameFinished;
+    return this.currentGame.framesPlayed() === 10 && this.currentGame._getMostRecentFrame().frameFinished;
   }
 
   constructor(name) {
@@ -41,7 +41,15 @@ class Scorecard {
     this.frames.push(new Frame);
   }
 
-  _getLastFrame() {
+  _getMostRecentFrame() {
     return this.frames[this.frames.length - 1];
+  }
+
+  _getPreviousFrame() {
+    return this.frames[this.frames.length - 2];
+  }
+
+  _get2ndPreviousFrame() {
+    return this.frames[this.frames.length - 3];
   }
 }
