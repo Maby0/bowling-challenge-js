@@ -2,16 +2,10 @@ describe('Scorecard', () => {
   let scorecard;
 
   describe('constructor', () => {
-    beforeEach(() => {
-      scorecard = new Scorecard("Mabon");
-    })
-
-    it('has a name value upon initialisation', () => {
+    it('has a name and empty array upon initialisation', () => {
+      let scorecard = new Scorecard("Mabon");
       expect(scorecard.name).toEqual("Mabon");
-    })
-
-    it('has an empty array of frames upon initialisation', () => {
-      expect(scorecard.frames).toEqual([])
+      expect(scorecard.frames).toEqual([]);
     })
   })
 
