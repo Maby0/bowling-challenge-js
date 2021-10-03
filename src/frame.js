@@ -3,4 +3,8 @@ class Frame {
     this.frameScore = null;
     this.frameFinished = false
   }
+
+  bowl() {
+    
+  }
 }

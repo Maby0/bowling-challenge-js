@@ -24,20 +24,20 @@ describe('Scorecard', () => {
       expect(scorecard.score()).toEqual(5);
     })
   })
-
-  describe('nextFrame', () => {
-    it('adds a frame to frames property', () => {
-      scorecard = new Scorecard("Mabon");
-      scorecard.nextFrame();
-      expect(scorecard.frames.length).toEqual(1);
-    })
-  })
+  // unnecessary
+  // describe('_nextFrame', () => {
+  //   it('adds a frame to frames property', () => {
+  //     scorecard = new Scorecard("Mabon");
+  //     scorecard._nextFrame();
+  //     expect(scorecard.frames.length).toEqual(1);
+  //   })
+  // })
 
   describe('framesPlayer', () => {
     it('returns the number of frames played', () => {
       scorecard = new Scorecard("Mabon");
       for (let i = 0; i < 4; i++) {
-        scorecard.nextFrame();
+        scorecard._nextFrame();
       }
       expect(scorecard.framesPlayed()).toEqual(4);
     })
@@ -56,13 +56,18 @@ describe('Scorecard', () => {
     it('returns a game ending notice if 10 frames have been completed', () => {
       Scorecard.startGame("Mabon")
       for (let i = 0; i < 9; i++) {
-        Scorecard.currentGame.nextFrame();
+        Scorecard.currentGame._nextFrame();
         Scorecard.currentGame.frames[Scorecard.currentGame.frames.length - 1].frameScore = 5;
         Scorecard.currentGame.frames[Scorecard.currentGame.frames.length - 1].frameFinished = true;
       }
-      expect(Scorecard.bowl()).toEqual(`The game has ended. Your final score was ${Scorecard.currentGame.score()}.`);
+      expect(Scorecard.bowl()).toEqual(`The game has ended. Your final score was 45.`);
     })
 
-    // it('adds a frame to frames array if ')
+    it('adds a frame to frames array if last frame has finished', () => {
+      Scorecard.startGame("Mabon");
+      Scorecard.currentGame.frames[Scorecard.currentGame.frames.length - 1].frameFinished = true;
+      Scorecard.bowl();
+      expect(Scorecard.currentGame.frames.length).toEqual(2);
+    })
   })
 })

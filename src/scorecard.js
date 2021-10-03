@@ -9,11 +9,18 @@ class Scorecard {
   static bowl() {
     if (this._gameEnded()) {
       return `The game has ended. Your final score was ${this.currentGame.score()}.`
+    } else {
+      if (this.currentGame._getLastFrame().frameFinished) {
+        this.currentGame._nextFrame();
+        this.currentGame._getLastFrame().bowl();
+      } else {
+        this.currentGame._getLastFrame().bowl();
+      }
     }
   }
 
   static _gameEnded() {
-    return this.currentGame.framesPlayed() === 10 && this.currentGame.frames[this.currentGame.frames.length - 1].frameFinished;
+    return this.currentGame.framesPlayed() === 10 && this.currentGame._getLastFrame().frameFinished;
   }
 
   constructor(name) {
@@ -26,11 +33,15 @@ class Scorecard {
     return frameScoring.reduce((a, b) => a + b);
   }
 
-  nextFrame() {
+  framesPlayed() {
+    return this.frames.length;
+  }
+
+  _nextFrame() {
     this.frames.push(new Frame);
   }
 
-  framesPlayed() {
-    return this.frames.length;
+  _getLastFrame() {
+    return this.frames[this.frames.length - 1];
   }
 }
