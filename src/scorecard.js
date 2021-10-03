@@ -7,7 +7,13 @@ class Scorecard {
   static currentGame;
 
   static bowl() {
-    
+    if (this._gameEnded()) {
+      return `The game has ended. Your final score was ${this.currentGame.score()}.`
+    }
+  }
+
+  static _gameEnded() {
+    return this.currentGame.framesPlayed() === 10 && this.currentGame.frames[this.currentGame.frames.length - 1].frameFinished;
   }
 
   constructor(name) {

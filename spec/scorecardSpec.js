@@ -51,4 +51,18 @@ describe('Scorecard', () => {
       expect(Scorecard.currentGame.frames.length).toEqual(1);
     })
   })
+
+  describe('.bowl', () => {
+    it('returns a game ending notice if 10 frames have been completed', () => {
+      Scorecard.startGame("Mabon")
+      for (let i = 0; i < 9; i++) {
+        Scorecard.currentGame.nextFrame();
+        Scorecard.currentGame.frames[Scorecard.currentGame.frames.length - 1].frameScore = 5;
+        Scorecard.currentGame.frames[Scorecard.currentGame.frames.length - 1].frameFinished = true;
+      }
+      expect(Scorecard.bowl()).toEqual(`The game has ended. Your final score was ${Scorecard.currentGame.score()}.`);
+    })
+
+    // it('adds a frame to frames array if ')
+  })
 })
