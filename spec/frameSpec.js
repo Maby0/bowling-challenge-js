@@ -90,5 +90,56 @@ describe('Frame', () => {
         expect(Scorecard.currentGame._getPreviousFrame().frameScore).toEqual(15);
       })
     })
+
+    describe('10th frame', () => {
+      let spies;
+      beforeEach(() => {
+        spies = spyOn(window, 'prompt').and.returnValue(0);
+      })
+
+      it('calculates final score after the game ends', () => {
+        spies;
+        Scorecard.startGame("Mabon");
+        for (let i = 0; i < 20; i++) {
+          Scorecard.bowl();
+        }
+        expect(Scorecard.bowl()).toEqual(`The game has ended. Your final score was 0.`)
+      })
+
+      it('requests a bonus roll if you score a strike in the final frame', () => {
+        spies;
+        Scorecard.startGame("Mabon");
+        for (let i = 0; i < 18; i++) {
+          Scorecard.bowl();
+        }
+        spies.and.returnValue(10)
+        Scorecard.bowl();
+        Scorecard.bowl();
+        Scorecard.bowl();
+        expect(Scorecard.currentGame.score()).toEqual(30);
+      })
+
+      it('requests a bonus roll if you score a spare in the final frame', () => {
+        spies;
+        Scorecard.startGame("Mabon");
+        for (let i = 0; i < 18; i++) {
+          Scorecard.bowl();
+        }
+        spies.and.returnValue(5)
+        Scorecard.bowl();
+        Scorecard.bowl();
+        Scorecard.bowl();
+        expect(Scorecard.currentGame.score()).toEqual(15);
+      })
+
+      it('calculates a perfect (300) game', () => {
+        spies.and.returnValue(10);
+        Scorecard.startGame("Mabon");
+        for (let i = 0; i < 21; i++) {
+          Scorecard.bowl();
+        }
+        expect(Scorecard.currentGame.score()).toEqual(300);
+      })
+    })
   })
 })
